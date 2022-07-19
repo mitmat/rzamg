@@ -17,9 +17,11 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #'
 #' get_metadata(resource_id = "klima-v1-10min")
 #'
+#' }
 #'
 get_metadata <- function(type = "station",
                          mode = "historical",

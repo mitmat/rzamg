@@ -18,6 +18,8 @@ into a list that holds almost all the returned information (parameter info,
 station location, the actual data).
 }
 \examples{
+\dontrun{
+
 # The same URL as in the example on
 # https://dataset.api.hub.zamg.ac.at/v1/docs/quickstart.html
 
@@ -28,5 +30,7 @@ u <- create_url(resource_id = "klima-v1-10min",
                 station_ids = "5904")
 
 data_from_url(u = u)
+
+}
 
 }

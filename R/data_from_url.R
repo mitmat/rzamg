@@ -13,6 +13,8 @@
 #' @import dplyr
 #'
 #' @examples
+#' \dontrun{
+#'
 #' # The same URL as in the example on
 #' # https://dataset.api.hub.zamg.ac.at/v1/docs/quickstart.html
 #'
@@ -23,6 +25,8 @@
 #'                 station_ids = "5904")
 #'
 #' data_from_url(u = u)
+#'
+#' }
 #'
 data_from_url <- function(u){
 

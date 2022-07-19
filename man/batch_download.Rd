@@ -42,7 +42,7 @@ system time.}
 \item{mode}{Data mode, currently, pkg is only tested with "historical" (default).}
 }
 \value{
-Invisible: the directory as character string. Saves files along the way.
+The directory path as character string. Saves files along the way.
 }
 \description{
 Wrapper around \code{\link{single_series}}, with some extra functionality.
@@ -63,10 +63,11 @@ of \code{\link{metadata_zamg}}. In summary, the resulting files allow fast
 working with the data.
 }
 \examples{
+\dontrun{
 
 # which snow parameters are there for monthly data?
 metadata_zamg$`klima-v1-1m`$parameters \%>\%
-    dplyr::filter(grepl("schnee", long_name, ignore.case = T))
+    dplyr::filter(grepl("schnee", long_name, ignore.case = TRUE))
 
 # take monthly cumulative snowfall and maximum snow height
 params <- c("nsch", "schmax")
@@ -80,10 +81,10 @@ stn_ids <- metadata_zamg$`klima-v1-1m`$stations \%>\%
 path_dir_save <- tempdir() # temporary directory for examples
 
 # download whole time series
-batch_download(id = "klima-v1-1m",
-               parameters = param,
+batch_download(resource_id = "klima-v1-1m",
+               parameters = params,
                station_ids = stn_ids,
                path_dir_save = path_dir_save)
-
+}
 
 }

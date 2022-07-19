@@ -30,7 +30,7 @@
 #' @param type Data type, currently, pkg is only tested with "station" (default).
 #' @param mode Data mode, currently, pkg is only tested with "historical" (default).
 #'
-#' @return Invisible: the directory as character string. Saves files along the way.
+#' @return The directory path as character string. Saves files along the way.
 #'
 #' @export
 #'
@@ -39,10 +39,11 @@
 #' @import progress
 #'
 #' @examples
+#' \dontrun{
 #'
 #' # which snow parameters are there for monthly data?
 #' metadata_zamg$`klima-v1-1m`$parameters %>%
-#'     dplyr::filter(grepl("schnee", long_name, ignore.case = T))
+#'     dplyr::filter(grepl("schnee", long_name, ignore.case = TRUE))
 #'
 #' # take monthly cumulative snowfall and maximum snow height
 #' params <- c("nsch", "schmax")
@@ -56,11 +57,11 @@
 #' path_dir_save <- tempdir() # temporary directory for examples
 #'
 #' # download whole time series
-#' batch_download(id = "klima-v1-1m",
-#'                parameters = param,
+#' batch_download(resource_id = "klima-v1-1m",
+#'                parameters = params,
 #'                station_ids = stn_ids,
 #'                path_dir_save = path_dir_save)
-#'
+#' }
 #'
 batch_download <- function(resource_id,
                            parameters,
@@ -146,7 +147,7 @@ batch_download <- function(resource_id,
 
     }
 
-    invisible(path_dir_save)
+    return(path_dir_save)
 
 }
 

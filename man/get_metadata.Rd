@@ -26,8 +26,10 @@ A list of available data sets (with resource_id) can also be retrieved
 from \url{http://dataset.api.hub.zamg.ac.at/v1/datasets/}.
 }
 \examples{
+\dontrun{
 
 get_metadata(resource_id = "klima-v1-10min")
 
+}
 
 }

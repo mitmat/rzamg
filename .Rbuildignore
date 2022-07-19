@@ -1,3 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
+^LICENSE\.md$
+Rtemp/
+data-test/
