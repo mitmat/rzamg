@@ -1,6 +1,6 @@
 ## code to prepare `metadata_zamg` dataset goes here
 
-library(openweatherAT)
+library(rzamg)
 library(dplyr)
 
 metadata_zamg <- datasets_zamg %>%
