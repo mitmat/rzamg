@@ -100,13 +100,15 @@ batch_download <- function(resource_id,
                     metadata_zamg[[resource_id]][["stations"]] %>%
                         filter(id == i_stn) %>%
                         pull(valid_from) %>%
-                        lubridate::format_ISO8601() -> date_start
+                        lubridate::format_ISO8601() -> date_start_stn
 
+                } else {
+                    date_start_stn <- date_start
                 }
 
                 tbl_stn <- single_series(resource_id = resource_id,
                                          parameter = i_par,
-                                         date_start = date_start,
+                                         date_start = date_start_stn,
                                          date_end = date_end,
                                          station_id = i_stn)
 
