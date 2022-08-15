@@ -10,7 +10,7 @@ batch_download(
   station_ids,
   path_dir_save,
   date_start,
-  date_end = lubridate::format_ISO8601(Sys.time()),
+  date_end,
   save_extra = FALSE,
   show_progress = TRUE,
   type = "station",

@@ -29,4 +29,5 @@ Contributions and ideas are welcome! Feel free to reach out in any way.
 
 ## TODO:
 - add check for internet connection?
+- check for date parameter: is date, and within period available
 - add ehyd/hzb crawler (separate package!)

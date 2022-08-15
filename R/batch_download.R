@@ -68,7 +68,7 @@ batch_download <- function(resource_id,
                            station_ids,
                            path_dir_save,
                            date_start,
-                           date_end = lubridate::format_ISO8601(Sys.time()),
+                           date_end,
                            save_extra = FALSE,
                            show_progress = TRUE,
                            type = "station",
@@ -106,10 +106,24 @@ batch_download <- function(resource_id,
                     date_start_stn <- date_start
                 }
 
+                if(missing(date_end)){
+
+                    date_max_stn <- metadata_zamg[[resource_id]][["stations"]] %>%
+                        filter(id == i_stn) %>%
+                        pull(valid_to)
+
+                    if(Sys.time() < date_max_stn) date_max_stn <- Sys.time()
+
+                    date_end_stn <- lubridate::format_ISO8601(date_max_stn)
+
+                } else {
+                    date_end_stn <- date_end
+                }
+
                 tbl_stn <- single_series(resource_id = resource_id,
                                          parameter = i_par,
                                          date_start = date_start_stn,
-                                         date_end = date_end,
+                                         date_end = date_end_stn,
                                          station_id = i_stn)
 
                 saveRDS(tbl_stn, fn_stn)
