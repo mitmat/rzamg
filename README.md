@@ -30,4 +30,5 @@ Contributions and ideas are welcome! Feel free to reach out in any way.
 ## TODO:
 - add check for internet connection?
 - check for date parameter: is date, and within period available
+- add check for max api request limit (1e6 values for csv/json)
 - add ehyd/hzb crawler (separate package!)

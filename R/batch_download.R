@@ -120,13 +120,17 @@ batch_download <- function(resource_id,
                     date_end_stn <- date_end
                 }
 
-                tbl_stn <- single_series(resource_id = resource_id,
-                                         parameter = i_par,
-                                         date_start = date_start_stn,
-                                         date_end = date_end_stn,
-                                         station_id = i_stn)
+                try({
+                    tbl_stn <- single_series(resource_id = resource_id,
+                                             parameter = i_par,
+                                             date_start = date_start_stn,
+                                             date_end = date_end_stn,
+                                             station_id = i_stn)
 
-                saveRDS(tbl_stn, fn_stn)
+                    saveRDS(tbl_stn, fn_stn)
+                })
+
+
             } else {
                 if(save_extra) tbl_stn <- readRDS(fn_stn)
             }
