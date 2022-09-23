@@ -40,8 +40,8 @@ create_url <- function(resource_id,
     baseurl <- "https://dataset.api.hub.zamg.ac.at"
     version  <- "v1" # only v1 as of 2022-07-13
 
-    checkmate::assert_choice(type, c("station", "grid", "timeseries"))
-    checkmate::assert_choice(mode, c("historical", "current", "forecast"))
+    checkmate::assert_choice(type, datasets_zamg$type)
+    checkmate::assert_choice(mode, datasets_zamg$mode)
     checkmate::assert_choice(resource_id, datasets_zamg$resource_id)
 
     url_full <- paste(c(baseurl, version, type, mode, resource_id), collapse = "/")

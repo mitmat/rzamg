@@ -36,8 +36,8 @@ single_series <- function(resource_id,
     baseurl <- "https://dataset.api.hub.zamg.ac.at"
     version  <- "v1" # only v1 as of 2022-07-13
 
-    checkmate::assert_choice(type, c("station", "grid", "timeseries"))
-    checkmate::assert_choice(mode, c("historical", "current", "forecast"))
+    checkmate::assert_choice(type, datasets_zamg$type)
+    checkmate::assert_choice(mode, datasets_zamg$mode)
     checkmate::assert_choice(resource_id, datasets_zamg$resource_id)
     checkmate::assert_choice(parameter, metadata_zamg[[resource_id]][["parameters"]][["name"]])
     checkmate::assert_character(station_id)
