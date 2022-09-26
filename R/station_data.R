@@ -1,10 +1,10 @@
-#' Download and parse data from URL
+#' Download and parse station data from URL
 #'
-#' Transforms the JSON output of a request created by \code{\link{create_url}}
+#' Transforms the JSON output of a request created by \code{\link{query_station}}
 #' into a list that holds almost all the returned information (parameter info,
 #' station location, the actual data).
 #'
-#' @param u A request, as created by \code{\link{create_url}}.
+#' @param request A request, as created by \code{\link{query_station}}.
 #'
 #' @return A list with parameter info, station location, and data (as tibbles).
 #'
@@ -15,22 +15,22 @@
 #' @examples
 #' \dontrun{
 #'
-#' # The same URL as in the example on
+#' library(magrittr)
+#' # The same request as in the example on
 #' # https://dataset.api.hub.zamg.ac.at/v1/docs/quickstart.html
 #'
-#' u <- create_url(resource_id = "klima-v1-10min",
-#'                 parameters = c("TL", "RR", "RRM"),
-#'                 date_start = "2020-12-24T08:00",
-#'                 date_end = "2020-12-24T09:00",
-#'                 station_ids = "5904")
-#'
-#' data_from_url(u = u)
+#' create_url(type = "station", mode = "historical", resource_id = "klima-v1-10min") %>%
+#'     query_station(parameters = c("TL", "RR", "RRM"),
+#'                   date_start = "2020-12-24T08:00",
+#'                   date_end = "2020-12-24T09:00",
+#'                   station_ids = "5904") %>%
+#'      station_data()
 #'
 #' }
 #'
-data_from_url <- function(u){
+station_data <- function(request){
 
-    res <- httr::GET(u)
+    res <- httr::GET(request)
     if(httr::http_error(res)) stop(httr::content(res)$detail)
 
     json <- httr::content(res)

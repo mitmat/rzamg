@@ -4,50 +4,29 @@
 \alias{create_url}
 \title{Create the URL for the ZAMG data hub API}
 \usage{
-create_url(
-  resource_id,
-  parameters,
-  date_start,
-  date_end,
-  station_ids,
-  type = "station",
-  mode = "historical"
-)
+create_url(type, mode, resource_id)
 }
 \arguments{
-\item{resource_id}{The resource_id as available in \code{\link{datasets_zamg}}.}
+\item{type}{Data type, as available in \code{\link{datasets_zamg}}.}
 
-\item{parameters}{Parameters (character), might have different name depending on resource_id,
-see also \code{\link{metadata_zamg}}.}
+\item{mode}{Data mode, as available in \code{\link{datasets_zamg}}.}
 
-\item{date_start}{The start date (ISO8601) to download the time series.}
-
-\item{date_end}{The end date (ISO8601) to download the time series.}
-
-\item{station_ids}{Station identifiers (character), see also \code{\link{metadata_zamg}}.}
-
-\item{type}{Data type, currently, pkg is only tested with "station" (default).}
-
-\item{mode}{Data mode, currently, pkg is only tested with "historical" (default).}
+\item{resource_id}{The resource_id, as available in \code{\link{datasets_zamg}} .}
 }
 \value{
 The URL as a character string.
 }
 \description{
-Build the URL to access the API by specifying each part of the query.
-The meta data is available as internal datasets \code{\link{datasets_zamg}}
-and \code{\link{metadata_zamg}}, the contents of which might help to
-derive the needed parameters.
-For how to specify dates, see \url{https://en.wikipedia.org/wiki/ISO_8601}.
+Build the URL to access the API by specifying each part. The needed
+information is available as internal dataset \code{\link{datasets_zamg}} with
+column names the same as function parameters.
 }
 \examples{
-# The same URL as in the example on
+# The first part of the URL as in the example on
 # https://dataset.api.hub.zamg.ac.at/v1/docs/quickstart.html
 
-create_url(resource_id = "klima-v1-10min",
-           parameters = c("TL", "RR", "RRM"),
-           date_start = "2020-12-24T08:00",
-           date_end = "2020-12-24T09:00",
-           station_ids = "5904")
+create_url(type = "station",
+           mode = "historical",
+           resource_id = "klima-v1-10min")
 
 }

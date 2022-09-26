@@ -1,14 +1,14 @@
-#' Download multiple time series and parameters at once
+#' Download multiple station time series and parameters at once
 #'
-#' Wrapper around \code{\link{single_series}}, with some extra functionality.
-#' Will download all parameters and all station specified, and save them in
-#' the given directory. Start and end date can be omitted, in which case the
-#' whole time series up to the current time will be downloaded.
+#' Wrapper around \code{\link{station_single}}, with some extra functionality.
+#' Will download all parameters and all stations specified, and save them in the
+#' given directory. Start and end date can be omitted, in which case the whole
+#' time series up to the current time will be downloaded.
 #'
 #' Creates a folder for each parameter within path_dir_save, and saves the
-#' downloaded tables as rds-files that have the station id as filename. If
-#' the file already exists, it will be skipped (so it can be downloaded in
-#' multiple sessions).
+#' downloaded tables as rds-files that have the station id as filename. If the
+#' file already exists, it will be skipped (so it can be downloaded in multiple
+#' sessions).
 #'
 #' If save_extra is TRUE, then the downloaded single series will be combined
 #' into one tibble storing all stations and parameters. Additionally, tibbles
@@ -16,25 +16,27 @@
 #' of \code{\link{metadata_zamg}}. In summary, the resulting files allow fast
 #' working with the data.
 #'
-#' @param resource_id The resource_id as available in \code{\link{datasets_zamg}}.
-#' @param parameters Parameters (character), might have different name depending on resource_id,
-#'   see also \code{\link{metadata_zamg}}.
-#' @param station_ids Station identifiers (character), see also \code{\link{metadata_zamg}}.
+#' @param resource_id The resource_id as available in
+#'   \code{\link{datasets_zamg}}.
+#' @param parameters Parameters (character), might have different name depending
+#'   on resource_id, see also \code{\link{metadata_zamg}}.
+#' @param station_ids Station identifiers (character), see also
+#'   \code{\link{metadata_zamg}}. If omitted, will take all available stations
+#'   for the resource_id.
 #' @param path_dir_save Directory folder to save files.
-#' @param date_start The start date (ISO8601) to download the time series. If missing,
-#'   starting date will be extracted from internal metadata.
-#' @param date_end The end date (ISO8601) to download the time series. Default: current
-#'   system time.
+#' @param date_start The start date (ISO8601) to download the time series. If
+#'   missing, starting date will be extracted from internal metadata.
+#' @param date_end The end date (ISO8601) to download the time series. Default:
+#'   current system time.
 #' @param save_extra Logical, if TRUE, saves combined data with auxiliary info.
 #' @param show_progress Logical, if TRUE, shows progress bar.
-#' @param type Data type, currently, pkg is only tested with "station" (default).
-#' @param mode Data mode, currently, pkg is only tested with "historical" (default).
 #'
 #' @return The directory path as character string. Saves files along the way.
 #'
 #' @export
 #'
 #' @import fs
+#' @import magrittr
 #' @import dplyr
 #' @import progress
 #'
@@ -57,22 +59,20 @@
 #' path_dir_save <- tempdir() # temporary directory for examples
 #'
 #' # download whole time series
-#' batch_download(resource_id = "klima-v1-1m",
-#'                parameters = params,
-#'                station_ids = stn_ids,
-#'                path_dir_save = path_dir_save)
+#' station_batch(resource_id = "klima-v1-1m",
+#'               parameters = params,
+#'               station_ids = stn_ids,
+#'               path_dir_save = path_dir_save)
 #' }
 #'
-batch_download <- function(resource_id,
-                           parameters,
-                           station_ids,
-                           path_dir_save,
-                           date_start,
-                           date_end,
-                           save_extra = FALSE,
-                           show_progress = TRUE,
-                           type = "station",
-                           mode = "historical"){
+station_batch <- function(resource_id,
+                          parameters,
+                          station_ids,
+                          path_dir_save,
+                          date_start,
+                          date_end,
+                          save_extra = FALSE,
+                          show_progress = TRUE){
 
     checkmate::assert_choice(resource_id, datasets_zamg$resource_id)
     checkmate::assert_subset(parameters, metadata_zamg[[resource_id]][["parameters"]][["name"]])
@@ -121,11 +121,11 @@ batch_download <- function(resource_id,
                 }
 
                 try({
-                    tbl_stn <- single_series(resource_id = resource_id,
-                                             parameter = i_par,
-                                             date_start = date_start_stn,
-                                             date_end = date_end_stn,
-                                             station_id = i_stn)
+                    tbl_stn <- station_single(resource_id = resource_id,
+                                              parameter = i_par,
+                                              date_start = date_start_stn,
+                                              date_end = date_end_stn,
+                                              station_id = i_stn)
 
                     saveRDS(tbl_stn, fn_stn)
                 })

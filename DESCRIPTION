@@ -21,6 +21,7 @@ Imports:
     fs,
     lubridate,
     dplyr,
+    magrittr,
     tidyr
 Depends: 
     R (>= 3.5.0)
