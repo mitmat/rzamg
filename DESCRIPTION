@@ -1,7 +1,7 @@
 Package: rzamg
 Type: Package
 Title: Programmatic access to the ZAMG data hub API
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: person("Michael", "Matiu", 
                   email = "michaelmatiu@gmail.com",
                   role = c("aut", "cre"),
@@ -9,8 +9,8 @@ Authors@R: person("Michael", "Matiu",
 Maintainer: Michael Matiu <michaelmatiu@gmail.com>
 Description: 
     Allows retrieving meteorological data from the Austrian weather service
-    (ZAMG) using their data hub (<https://data.hub.zamg.ac.at/>). Currently only 
-    supports single station time series.
+    (ZAMG) using their data hub (<https://data.hub.zamg.ac.at/>). Supports 
+    downloading stations and grids, individually or multiple at once.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -25,6 +25,6 @@ Imports:
     tidyr
 Depends: 
     R (>= 3.5.0)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 URL: https://github.com/mitmat/rzamg
 BugReports: https://github.com/mitmat/rzamg/issues

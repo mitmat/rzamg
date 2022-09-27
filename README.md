@@ -6,7 +6,7 @@ An R-package to access the [data hub](https://data.hub.zamg.ac.at/) of the centr
 
 Inspired by the great [rdwd](https://github.com/brry/rdwd) package.
 
-Allows a programmatic retrieval of data, currently only supports station time series. The main functions for single requests are `create_url()` and `data_from_url()`, while `single_series()` and `batch_download()` provide a fast way to download larger batches.
+Allows a programmatic retrieval of data, currently supports stations and grids. The main functions for single requests are `create_url()`, `query_station()`, `query_grid()`, together with `station_data()` and `grid_data()`, respectively. Batch download functionality is available via `station_batch()` and `grid_batch()`. Metadata is stored as package data: `metadata_station` and `metadata_grid`.
 
 
 ## Installation
@@ -28,7 +28,8 @@ Contributions and ideas are welcome! Feel free to reach out in any way.
 
 
 ## TODO:
-- add check for internet connection?
-- check for date parameter: is date, and within period available
-- add check for max api request limit (1e6 values for csv/json)
-- add ehyd/hzb crawler (separate package!)
+
+- output_format=csv works better for station -> rewrite station_batch/station_single?
+- check for date parameter: is date, and within period available; -> might be already provided by datahub
+- add check for max api request limit (1e6 values for csv/json) -> or not, since error is provided by datahub
+
