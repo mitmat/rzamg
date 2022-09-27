@@ -9,22 +9,23 @@ query_station(u, parameters, date_start, date_end, station_ids)
 \arguments{
 \item{u}{URL from \code{\link{create_url}}.}
 
-\item{parameters}{Parameters (character), might have different name depending on resource_id,
-see also \code{\link{metadata_zamg}}.}
+\item{parameters}{Parameters (character), might have different name depending
+on resource_id, see also \code{\link{metadata_station}}.}
 
 \item{date_start}{The start date (ISO8601) to download the time series.}
 
 \item{date_end}{The end date (ISO8601) to download the time series.}
 
-\item{station_ids}{Station identifiers (character), see also \code{\link{metadata_zamg}}.}
+\item{station_ids}{Station identifiers (character), see also
+\code{\link{metadata_station}}.}
 }
 \value{
 The request (URL + query) as a character string.
 }
 \description{
 Specify each part of the query and append to the URL, which is created by
-\code{\link{create_url}}. See \code{\link{metadata_zamg}} for help to derive
-the needed parameters. For how to specify dates, see
+\code{\link{create_url}}. See \code{\link{metadata_station}} for help to
+derive the needed parameters. For how to specify dates, see
 \url{https://en.wikipedia.org/wiki/ISO_8601}.
 }
 \examples{

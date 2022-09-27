@@ -13,16 +13,16 @@
 #' If save_extra is TRUE, then the downloaded single series will be combined
 #' into one tibble storing all stations and parameters. Additionally, tibbles
 #' will be save with information on parameters and stations, which are subsets
-#' of \code{\link{metadata_zamg}}. In summary, the resulting files allow fast
+#' of \code{\link{metadata_station}}. In summary, the resulting files allow fast
 #' working with the data.
 #'
 #' @param resource_id The resource_id as available in
 #'   \code{\link{datasets_zamg}}.
 #' @param parameters Parameters (character), might have different name depending
-#'   on resource_id, see also \code{\link{metadata_zamg}}.
+#'   on resource_id, see also \code{\link{metadata_station}}.
 #' @param station_ids Station identifiers (character), see also
-#'   \code{\link{metadata_zamg}}. If omitted, will take all available stations
-#'   for the resource_id.
+#'   \code{\link{metadata_station}}. If omitted, will take all available
+#'   stations for the resource_id.
 #' @param path_dir_save Directory folder to save files.
 #' @param date_start The start date (ISO8601) to download the time series. If
 #'   missing, starting date will be extracted from internal metadata.
@@ -41,19 +41,21 @@
 #' @import progress
 #'
 #' @examples
+#'
 #' \dontrun{
+#' library(dplyr)
 #'
 #' # which snow parameters are there for monthly data?
-#' metadata_zamg$`klima-v1-1m`$parameters %>%
-#'     dplyr::filter(grepl("schnee", long_name, ignore.case = TRUE))
+#' metadata_station$`klima-v1-1m`$parameters %>%
+#'     filter(grepl("schnee", long_name, ignore.case = TRUE))
 #'
 #' # take monthly cumulative snowfall and maximum snow height
 #' params <- c("nsch", "schmax")
 #'
 #' # subset stations above 2000m and with data starting before 1920
-#' stn_ids <- metadata_zamg$`klima-v1-1m`$stations %>%
-#'     dplyr::filter(altitude > 2000, valid_from < "1920-01-01") %>%
-#'     dplyr::pull(id)
+#' stn_ids <- metadata_station$`klima-v1-1m`$stations %>%
+#'     filter(altitude > 2000, valid_from < "1920-01-01") %>%
+#'     pull(id)
 #'
 #' # path to save
 #' path_dir_save <- tempdir() # temporary directory for examples
@@ -64,7 +66,6 @@
 #'               station_ids = stn_ids,
 #'               path_dir_save = path_dir_save)
 #' }
-#'
 station_batch <- function(resource_id,
                           parameters,
                           station_ids,
@@ -75,10 +76,10 @@ station_batch <- function(resource_id,
                           show_progress = TRUE){
 
     checkmate::assert_choice(resource_id, datasets_zamg$resource_id)
-    checkmate::assert_subset(parameters, metadata_zamg[[resource_id]][["parameters"]][["name"]])
+    checkmate::assert_subset(parameters, metadata_station[[resource_id]][["parameters"]][["name"]])
     checkmate::assert_directory_exists(path_dir_save)
 
-    if(missing(station_ids)) station_ids <- metadata_zamg[[resource_id]][["stations"]][["id"]]
+    if(missing(station_ids)) station_ids <- metadata_station[[resource_id]][["stations"]][["id"]]
 
     if(save_extra) l_data <- list()
 
@@ -97,7 +98,7 @@ station_batch <- function(resource_id,
 
                 if(missing(date_start)){
 
-                    metadata_zamg[[resource_id]][["stations"]] %>%
+                    metadata_station[[resource_id]][["stations"]] %>%
                         filter(id == i_stn) %>%
                         pull(valid_from) %>%
                         lubridate::format_ISO8601() -> date_start_stn
@@ -108,7 +109,7 @@ station_batch <- function(resource_id,
 
                 if(missing(date_end)){
 
-                    date_max_stn <- metadata_zamg[[resource_id]][["stations"]] %>%
+                    date_max_stn <- metadata_station[[resource_id]][["stations"]] %>%
                         filter(id == i_stn) %>%
                         pull(valid_to)
 
@@ -151,11 +152,11 @@ station_batch <- function(resource_id,
 
     if(save_extra){
 
-        metadata_zamg[[resource_id]][["parameters"]] %>%
+        metadata_station[[resource_id]][["parameters"]] %>%
             filter(name %in% parameters) %>%
             saveRDS(path(path_dir_save, "info-parameters", ext = "rds"))
 
-        metadata_zamg[[resource_id]][["stations"]] %>%
+        metadata_station[[resource_id]][["stations"]] %>%
             filter(id %in% station_ids) %>%
             saveRDS(path(path_dir_save, "info-stations", ext = "rds"))
 

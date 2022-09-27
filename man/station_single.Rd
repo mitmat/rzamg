@@ -7,25 +7,27 @@
 station_single(resource_id, parameter, date_start, date_end, station_id)
 }
 \arguments{
-\item{resource_id}{The resource_id as available in \code{\link{datasets_zamg}}.}
+\item{resource_id}{The resource_id as available in
+\code{\link{datasets_zamg}}.}
 
-\item{parameter}{Parameter (character, length 1), might have different name depending on resource_id,
-see also \code{\link{metadata_zamg}}.}
+\item{parameter}{Parameter (character, length 1), might have different name
+depending on resource_id, see also \code{\link{metadata_station}}.}
 
 \item{date_start}{The start date (ISO8601) to download the time series.}
 
 \item{date_end}{The end date (ISO8601) to download the time series.}
 
-\item{station_id}{Station identifier (character, length 1), see also \code{\link{metadata_zamg}}.}
+\item{station_id}{Station identifier (character, length 1), see also
+\code{\link{metadata_station}}.}
 }
 \value{
 A tibble with columns datetime and value.
 }
 \description{
 A streamlined combination of \code{\link{station_data}} and
-\code{\link{query_station}} that only allows one station
-and one parameter to be downloaded. Only returns the time
-series without metadata. Also performs some input checks.
+\code{\link{query_station}} that only allows one station and one parameter to
+be downloaded. Only returns the time series without metadata. Also performs
+some input checks.
 }
 \examples{
 station_single(resource_id = "klima-v1-10min",

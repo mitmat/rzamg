@@ -20,11 +20,11 @@ station_batch(
 \code{\link{datasets_zamg}}.}
 
 \item{parameters}{Parameters (character), might have different name depending
-on resource_id, see also \code{\link{metadata_zamg}}.}
+on resource_id, see also \code{\link{metadata_station}}.}
 
 \item{station_ids}{Station identifiers (character), see also
-\code{\link{metadata_zamg}}. If omitted, will take all available stations
-for the resource_id.}
+\code{\link{metadata_station}}. If omitted, will take all available
+stations for the resource_id.}
 
 \item{path_dir_save}{Directory folder to save files.}
 
@@ -56,23 +56,25 @@ sessions).
 If save_extra is TRUE, then the downloaded single series will be combined
 into one tibble storing all stations and parameters. Additionally, tibbles
 will be save with information on parameters and stations, which are subsets
-of \code{\link{metadata_zamg}}. In summary, the resulting files allow fast
+of \code{\link{metadata_station}}. In summary, the resulting files allow fast
 working with the data.
 }
 \examples{
+
 \dontrun{
+library(dplyr)
 
 # which snow parameters are there for monthly data?
-metadata_zamg$`klima-v1-1m`$parameters \%>\%
-    dplyr::filter(grepl("schnee", long_name, ignore.case = TRUE))
+metadata_station$`klima-v1-1m`$parameters \%>\%
+    filter(grepl("schnee", long_name, ignore.case = TRUE))
 
 # take monthly cumulative snowfall and maximum snow height
 params <- c("nsch", "schmax")
 
 # subset stations above 2000m and with data starting before 1920
-stn_ids <- metadata_zamg$`klima-v1-1m`$stations \%>\%
-    dplyr::filter(altitude > 2000, valid_from < "1920-01-01") \%>\%
-    dplyr::pull(id)
+stn_ids <- metadata_station$`klima-v1-1m`$stations \%>\%
+    filter(altitude > 2000, valid_from < "1920-01-01") \%>\%
+    pull(id)
 
 # path to save
 path_dir_save <- tempdir() # temporary directory for examples
@@ -83,5 +85,4 @@ station_batch(resource_id = "klima-v1-1m",
               station_ids = stn_ids,
               path_dir_save = path_dir_save)
 }
-
 }

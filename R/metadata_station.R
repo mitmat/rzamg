@@ -1,6 +1,6 @@
-#' Metadata of stations and parameters
+#' Station metadata
 #'
-#' A named list with resource_ids corresponding to station time series (klima*).
+#' A named list with resource_ids corresponding to historical station time series.
 #' Each list item contains again a list of length two.
 #'
 #'
@@ -29,9 +29,10 @@
 #'   \item{lon}{Longitude}
 #'   \item{altitutde}{Elevation a.s.l.}
 #'   \item{valid_from}{Date start of observations}
-#'   \item{valid_to}{Date end of observations (? 2100-12-01 might imply up to now)}
+#'   \item{valid_to}{Date end of observations of package/data generation date
+#'       (actual end date might be later); (? 2100-12-01 might imply up to now)}
 #' }
 #'
 #'
 #' @source \url{https://dataset.api.hub.zamg.ac.at/v1/docs/index.html}
-"metadata_zamg"
+"metadata_station"

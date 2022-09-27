@@ -1,18 +1,20 @@
 #' Download a single time series of one parameter for one station
 #'
 #' A streamlined combination of \code{\link{station_data}} and
-#' \code{\link{query_station}} that only allows one station
-#' and one parameter to be downloaded. Only returns the time
-#' series without metadata. Also performs some input checks.
+#' \code{\link{query_station}} that only allows one station and one parameter to
+#' be downloaded. Only returns the time series without metadata. Also performs
+#' some input checks.
 #'
 #'
 #'
-#' @param resource_id The resource_id as available in \code{\link{datasets_zamg}}.
-#' @param parameter Parameter (character, length 1), might have different name depending on resource_id,
-#'   see also \code{\link{metadata_zamg}}.
+#' @param resource_id The resource_id as available in
+#'   \code{\link{datasets_zamg}}.
+#' @param parameter Parameter (character, length 1), might have different name
+#'   depending on resource_id, see also \code{\link{metadata_station}}.
 #' @param date_start The start date (ISO8601) to download the time series.
 #' @param date_end The end date (ISO8601) to download the time series.
-#' @param station_id Station identifier (character, length 1), see also \code{\link{metadata_zamg}}.
+#' @param station_id Station identifier (character, length 1), see also
+#'   \code{\link{metadata_station}}.
 #'
 #' @return A tibble with columns datetime and value.
 #'
@@ -31,9 +33,9 @@ station_single <- function(resource_id,
                            date_end,
                            station_id){
 
-    checkmate::assert_choice(parameter, metadata_zamg[[resource_id]][["parameters"]][["name"]])
+    checkmate::assert_choice(parameter, metadata_station[[resource_id]][["parameters"]][["name"]])
     checkmate::assert_character(station_id)
-    checkmate::assert_choice(station_id, metadata_zamg[[resource_id]][["stations"]][["id"]])
+    checkmate::assert_choice(station_id, metadata_station[[resource_id]][["stations"]][["id"]])
 
     # fixed parameters (maybe later generalize and add to function?)
     type <- "station"

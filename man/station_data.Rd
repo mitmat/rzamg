@@ -18,7 +18,6 @@ into a list that holds almost all the returned information (parameter info,
 station location, the actual data).
 }
 \examples{
-\dontrun{
 
 library(magrittr)
 # The same request as in the example on
@@ -29,8 +28,7 @@ create_url(type = "station", mode = "historical", resource_id = "klima-v1-10min"
                   date_start = "2020-12-24T08:00",
                   date_end = "2020-12-24T09:00",
                   station_ids = "5904") \%>\%
-     station_data()
+    station_data()
 
-}
 
 }
