@@ -1,3 +1,7 @@
+# rzamg 0.2.1 (dev)
+
+* removed `try()` around downloading in batches, because it cannot be aborted with ESC or Ctrl-C otherwise.
+
 # rzamg 0.2.0
 
 * reorganized station functions and names to match grid functionality

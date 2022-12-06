@@ -121,15 +121,13 @@ station_batch <- function(resource_id,
                     date_end_stn <- date_end
                 }
 
-                try({
-                    tbl_stn <- station_single(resource_id = resource_id,
-                                              parameter = i_par,
-                                              date_start = date_start_stn,
-                                              date_end = date_end_stn,
-                                              station_id = i_stn)
+                tbl_stn <- station_single(resource_id = resource_id,
+                                          parameter = i_par,
+                                          date_start = date_start_stn,
+                                          date_end = date_end_stn,
+                                          station_id = i_stn)
 
-                    saveRDS(tbl_stn, fn_stn)
-                })
+                saveRDS(tbl_stn, fn_stn)
 
 
             } else {

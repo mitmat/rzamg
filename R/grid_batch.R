@@ -85,11 +85,11 @@ grid_batch <- function(resource_id,
 
         if(!file_exists(fn_date)){
 
-            try({
-                create_url("grid", "historical", resource_id) %>%
-                    query_grid(parameters, all_dates[i], all_dates[i], bbox) %>%
-                    grid_data(fn_date)
-            })
+
+            create_url("grid", "historical", resource_id) %>%
+                query_grid(parameters, all_dates[i], all_dates[i], bbox) %>%
+                grid_data(fn_date)
+
 
             pb$tick(tokens = list(date = all_dates[i]))
 
